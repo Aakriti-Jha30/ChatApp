@@ -1,5 +1,6 @@
 import Conversation from "../models/conversation.model.js"
 import Message from "../models/message.model.js"
+import { getReceiverSocketId,io } from "../socket/socket.js";
 
 export const sendMessage=async(req,res)=>{
     try{
@@ -35,14 +36,22 @@ export const sendMessage=async(req,res)=>{
             conv.messages.push(newMessage._id);
             
         }
-
-
-        //=>SOCKET.IO FUNCTIONALITY WILL GO HERE(TO MAKE IT REAL TIME)
-
+        
         //Well this will take longer :(
         // await conv.save(); //We have put this save so that after we have actually made changes and push the messageId into the message array of the conv we can resave
         // await newMessage.save();
         await Promise.all([conv.save(),newMessage.save()]); 
+
+        //=>SOCKET.IO FUNCTIONALITY WILL GO HERE(TO MAKE IT REAL TIME)
+
+       const receiverSocketId=getReceiverSocketId(receiverId);
+       //=>Sending to a speicific client
+       if(receiverSocketId){
+        io.to(receiverSocketId).emit("newMessage",newMessage);
+       }
+
+
+      
         //Return the new message
         res.status(200).json(newMessage);
 

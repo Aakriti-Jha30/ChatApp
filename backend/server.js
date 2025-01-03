@@ -8,10 +8,10 @@ import messageRoutes from "./routes/messages.routes.js";
 import userRoutes from "./routes/user.routes.js";
 
 import connectToDatabase from "./db/connectToMongoDB.js";
+import { app ,server} from "./socket/socket.js";
 
 
 
-const app=express();
 dotenv.config();
 
 
@@ -28,7 +28,7 @@ app.use("/api/users",userRoutes);
 
 const startServer=async()=>{
     await connectToDatabase();
-    app.listen(PORT,()=>{
+    server.listen(PORT,()=>{
         console.log(`App is listening on port ${PORT}`);
     })
 }
