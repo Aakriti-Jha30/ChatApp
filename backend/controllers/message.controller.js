@@ -70,13 +70,12 @@ export const getMessages=async(req,res)=>{
 
       
     
-        if(!conv){
-            return res.status(404).json({error:'Conversation not found'})
-        }
+        if (!conv) return res.status(200).json([]);
 
 
+        const messages=conv.messages;
         //We would now need the ids of the message from the conversation model which we are gonna find and return from messsage model
-        res.status(200).json(conv.messages);
+        res.status(200).json(messages);
 
     }catch(error){
         console.log("Error in getMessages Controller",error.message);

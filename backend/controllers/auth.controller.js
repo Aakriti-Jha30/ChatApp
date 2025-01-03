@@ -79,6 +79,7 @@ export const login=async(req,res)=>{
     //We will check if the password is correct,if not we will return invalid credentials
     //We will let the user login
      const {userName,password}=req.body; //JSON 
+     console.log("Received login request with:", { userName, password });
      const user=await User.findOne({userName});
 
      const isPasswordCorrect=await bcrypt.compare(password,user?.password||""); //Compare the two passwords

@@ -8,4 +8,4 @@ const router=Router();
 router.get("/:id",protectRoute,getMessages); //=>We will get message between current user and user from params
 router.post("/send/:id",protectRoute,sendMessage);
 
-export default router;
+export default router;  
