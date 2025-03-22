@@ -28,6 +28,7 @@ import { useAuthContext } from '../context/AuthContext';
     //We set the user to localStorage so that we have the log in information later as well after refreshing it
     localStorage.setItem("chat-user",JSON.stringify(data))
     //contenxt ,wil help us make sure to navigate them to login page
+   
     setAuthUser(data);
    
     }catch(error){

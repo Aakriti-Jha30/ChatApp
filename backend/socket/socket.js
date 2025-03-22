@@ -9,7 +9,7 @@ const server=http.createServer(app);
 
 const io = new Server(server,{
     cors:{
-        origin:['http://localhost:3000'],
+        origin:['http://localhost:3000'], //as socket can give us some cors error
         methods:["GET","POST"],
     }
 });
@@ -23,16 +23,16 @@ export const getReceiverSocketId=(receiverId)=>{
 
 const userSocketMap={}; //{userId:socketId}
 
-io.on('connection',(socket)=>{
+io.on("connection",(socket)=>{
     console.log('A user is connected',socket.id);
 
     const userId=socket.handshake.query.userId;
     if(userId != "undefined") userSocketMap[userId]=socket.id;
 
-    //send events
+    //send events 
     io.emit("getOnlineUsers",Object.keys(userSocketMap));
 
-    //Listen to events
+    //Listen to events,can be used both on client and server side
     socket.on("disconnect",()=>{
         console.log("A user is disconnected",socket.id);
         delete userSocketMap[userId];
