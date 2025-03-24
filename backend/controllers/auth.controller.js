@@ -32,8 +32,12 @@ export const signup=async (req,res)=>{
      const boyProfilePic=`https://avatar.iran.liara.run/public/boy?username=${userName}`
      const girlProfilePic=`https://avatar.iran.liara.run/public/girl?username=${userName}`
 
+    // const boyProfilePic = `https://api.dicebear.com/7.x/bottts/svg?seed=${userName}`;
+    // const girlProfilePic = `https://api.dicebear.com/7.x/avataaars/svg?seed=${userName}`;
 
 
+     console.log("Generated profile pic URL:", gender === 'male' ? boyProfilePic : girlProfilePic);
+     
      //Create a new user and save it in database, you could have directly used User.create
      const newUser=new User({
        fullName,
